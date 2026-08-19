@@ -51,10 +51,60 @@ def add_new_people(new_people:people):
     for users in peoples:
         if users.id == new_people.id:
             return {
-                "Message ":" id already exists "
-                }
+                "message": "ID already exists"
+            }
     peoples.append(new_people)
     return {
-        "its added successfully the user :{new_people}"
+        "message": f"User added successfully: {new_people.name}"
+    }
+#-------------------------------------------------------------------------------------------
+@app.put("/people_json")
+def update_people(id: int , people_add: people):
+    for i in range(len(peoples)):
+        if peoples[i].id == id:
+            peoples[i]=people_add
+            return {
+                 "message":"the user is updated successfully"
+            }
+    return {
+        "message":"the user is not found"   
     }
     
+#-------------------------------------------------------------------------------------------
+
+@app.delete("/people_json")
+def delete_people(id: int):
+    for i in range(0,len(peoples)):
+        if peoples[i].id == id:
+            delet = peoples.pop(i)
+            return {
+                "message": "User deleted successfully",
+                "deleted_user": delet
+            }
+    return {
+        "message": "User not found"
+    }
+#---------------------------------------------------------------------------------------------------
+"""
+-> To create the venv(virtual environment) in the project folder
+*   python -m venv myenv //py -m venv
+*  myenv\Scripts\activate //myenv\Scripts\activate.bat
+*  deactivate //deactivate.bat
+*fastapi is a modern, fast (high-performance),
+    web framework for building APIs using py
+    
+* uvicorn is a lightning-fast ASGI server implementation, 
+ASGI(Asynchronous Server Gateway Interface) its web server for fastapi
+
+
+-> To install the fastapi and uvicorn in the venv
+*   pip install fastapi uvicorn
+*   pip install pydantic (pydantic is used for data validation)
+*   py -m uvicorn api(file):app(varible we assigned "app = FastAPI()") --reload 
+
+"""
+#---------------------------------------------------------------------------------------------------
+"""
+-> gunicorn  are used to the flask and django
+
+"""
